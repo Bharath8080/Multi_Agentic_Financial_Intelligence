@@ -11,3 +11,4 @@ streamlit-navigation-bar
 linkup-sdk
 cufflinks
 agentops
+crawl4ai
