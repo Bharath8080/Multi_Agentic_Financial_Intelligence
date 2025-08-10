@@ -3,6 +3,8 @@ import os
 import agentops
 from agno.models.google import Gemini
 from agno.tools.yfinance import YFinanceTools
+from agno.tools.crawl4ai import Crawl4aiTools
+from agno.team.team import Team
 from linkup import LinkupClient
 from dotenv import load_dotenv
 
@@ -87,12 +89,51 @@ financial_analyst = Agent(
     ]
 )
 
-# Export the agent as the main interface
-finance_team = financial_analyst
+# Create Web Research Agent
+web_research_agent = Agent(
+    name="Web Research Agent",
+    model=Gemini(id="gemini-2.5-flash-lite", api_key=os.getenv("GEMINI_API_KEY")),
+    tools=[Crawl4aiTools(max_length=None)],
+    description="You are a web research specialist that helps find and analyze information from the web.",
+    instructions=[
+        "When given a research query:",
+        "1. Use the Crawl4ai tool to gather information from relevant web pages",
+        "2. Extract and summarize key information from the crawled content",
+        "3. Provide accurate citations for all information sources",
+        "4. For financial analysis, focus on: stock performance, company news, and market trends",
+        "5. Format the response clearly with proper headings and sections",
+        "6. Include direct links to sources when available"
+    ],
+    markdown=True,
+    show_tool_calls=True,
+)
+
+# Create Financial Team
+finance_team = Team(
+    name="Financial Analysis Team",
+    mode="route",
+    model=Gemini(id="gemini-2.5-flash-lite", api_key=os.getenv("GEMINI_API_KEY")),
+    members=[financial_analyst, web_research_agent],
+    show_tool_calls=True,
+    markdown=True,
+    description="A team of financial experts that provides comprehensive stock and market analysis.",
+    instructions=[
+        "Route financial queries to the most appropriate agent based on the request type:",
+        "1. For general financial analysis, market trends, and stock recommendations, use the Financial Analyst.",
+        "2. For detailed financial statements, company fundamentals, and raw financial data, use the Financial Data Agent.",
+        "3. If uncertain which agent to use, default to the Financial Analyst.",
+        "4. Always ensure responses are clear, well-formatted, and include relevant financial metrics.",
+        "5. When comparing stocks or analyzing multiple companies, use consistent metrics and time periods."
+    ],
+    show_members_responses=True,
+)
 
 # Example usage
 if __name__ == "__main__":
-    finance_team.print_response(
-        "suggest me best stock to buy for next 5 years",
-        stream=True
-    )
+    # Test with a general market query (goes to financial_analyst)
+    print("=== General Market Analysis ===")
+    finance_team.print_response("What are the top 3 tech stocks to watch this quarter?", stream=True)
+    
+    # Test with a web research query (goes to web_research_agent)
+    print("\n=== Web Research Analysis ===")
+    finance_team.print_response("Research the latest news and analysis for Tesla (TSLA)", stream=True)
