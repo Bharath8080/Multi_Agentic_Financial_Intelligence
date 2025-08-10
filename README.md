@@ -13,7 +13,7 @@ A sophisticated multi-agent financial intelligence platform that combines AI-pow
 
 ### 🤖 Multi-Agent Architecture
 - **Financial Analyst Agent**: Specializes in market analysis, stock recommendations, and financial metrics using YFinance.
-- **Web Research Agent**: Performs real-time web research using Crawl4ai for up-to-date information gathering.
+- **Web Research Agent**: Performs real-time web research using Serper's API, focusing on trusted financial sources for accurate and up-to-date information.
 
 ### 📊 Core Capabilities
 - **Interactive Stock Charts**: View candlestick charts with customizable timeframes
@@ -70,6 +70,7 @@ A sophisticated multi-agent financial intelligence platform that combines AI-pow
    GEMINI_API_KEY=your_gemini_api_key_here
    LINKUP_API_KEY=your_linkup_api_key_here
    AGENTOPS_API_KEY=your_agentops_api_key_here
+   SERPER_API_KEY=your_serper_api_key_here
    ```
 
 ### Running the Application
@@ -93,13 +94,16 @@ Open your browser and navigate to `http://localhost:8501`
   - Risk assessment
 
 ### Web Research Agent
-- **Purpose**: Gathers and synthesizes information from the web
+- **Purpose**: Gathers and synthesizes information from trusted financial sources
 - **Capabilities**:
-  - Real-time web research
-  - Information extraction from financial websites
-  - News aggregation and summarization
+  - Real-time web research using Serper's API
+  - Focused search across 20+ trusted financial domains
+  - News aggregation and summarization from top financial sources
+  - Academic research capabilities through Google Scholar
   - Source citation and verification
   - Market sentiment analysis
+  - Company-specific news and analysis
+  - Industry trend research
 
 ## 🎯 Usage Examples
 
@@ -122,6 +126,14 @@ response = finance_team.run("Research the latest developments in electric vehicl
 ```
 
 ## 🚀 Deployment
+
+### Prerequisites
+- Python 3.8+
+- Required API Keys:
+  - GEMINI_API_KEY (for AI analysis)
+  - LINKUP_API_KEY (for web search)
+  - AGENTOPS_API_KEY (for agent monitoring)
+  - SERPER_API_KEY (for web research)
 
 ### Local Development
 1. Follow the installation steps above
@@ -192,7 +204,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Built with [Streamlit](https://streamlit.io/)
 - Market data powered by [Yahoo Finance](https://finance.yahoo.com/)
 - AI capabilities powered by [Gemini](https://ai.google.dev/)
+- Web search powered by [Serper](https://serper.dev/)
 - Technical analysis with [pandas](https://pandas.pydata.org/) and [TA-Lib](https://mrjbq7.github.io/ta-lib/)
+- Financial data processing with [yfinance](https://github.com/ranaroussi/yfinance)
 
 ---
 
