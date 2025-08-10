@@ -1,5 +1,5 @@
 # 🚀 Multi-Agentic Financial Intelligence Platform
-
+![Image](https://github.com/user-attachments/assets/284119d8-d474-4bfc-b0b1-4dc95d1d5ece)
 <div align="center">
   <img src="https://img.shields.io/badge/Python-3.8+-blue.svg" alt="Python 3.8+">
   <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white" alt="Streamlit">
