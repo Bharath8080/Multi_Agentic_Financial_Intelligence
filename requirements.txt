@@ -10,3 +10,4 @@ python-dotenv
 streamlit-navigation-bar
 linkup-sdk
 cufflinks
+agentops
