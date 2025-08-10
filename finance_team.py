@@ -3,7 +3,7 @@ import os
 import agentops
 from agno.models.google import Gemini
 from agno.tools.yfinance import YFinanceTools
-from agno.tools.crawl4ai import Crawl4aiTools
+from agno.tools.serper import SerperTools
 from agno.team.team import Team
 from linkup import LinkupClient
 from dotenv import load_dotenv
@@ -89,20 +89,61 @@ financial_analyst = Agent(
     ]
 )
 
-# Create Web Research Agent
+# List of trusted financial websites for research
+TRUSTED_FINANCIAL_DOMAINS = [
+    # Market Data & Analysis
+    "finance.yahoo.com",
+    "google.com/finance",
+    "investing.com",
+    "marketwatch.com",
+    "bloomberg.com",
+    "reuters.com/finance",
+    "wsj.com/market-data",
+    "cnbc.com/markets",
+    "ft.com/markets",
+    "morningstar.com",
+    "seekingalpha.com",
+    "fool.com",
+    "zacks.com",
+    "finviz.com",
+    "tradingview.com",
+    "koyfin.com",
+    "tipranks.com"
+]
+
+def get_trusted_search_query(query: str) -> str:
+    """Enhance the query to prioritize trusted financial sources."""
+    # For Serper, we'll include site restrictions in the query
+    site_restrictions = " OR ".join([f"site:{domain}" for domain in TRUSTED_FINANCIAL_DOMAINS[:5]])  # Limit to top 5 for query length
+    return f"{query} ({site_restrictions})"
+
+# Create Web Research Agent with SerperTools
 web_research_agent = Agent(
     name="Web Research Agent",
     model=Gemini(id="gemini-2.5-flash-lite", api_key=os.getenv("GEMINI_API_KEY")),
-    tools=[Crawl4aiTools(max_length=None)],
-    description="You are a web research specialist that helps find and analyze information from the web.",
+    tools=[
+        SerperTools(
+            api_key=os.getenv("SERPER_API_KEY"),
+            # country="us",
+            language="en",
+            num_results=5,  # Limit to top 5 most relevant results
+            # date_range="1y"  # Focus on recent information
+        )
+    ],
+    description="You are a web research specialist that finds and analyzes information from trusted financial sources using Serper's search capabilities.",
     instructions=[
         "When given a research query:",
-        "1. Use the Crawl4ai tool to gather information from relevant web pages",
-        "2. Extract and summarize key information from the crawled content",
-        "3. Provide accurate citations for all information sources",
-        "4. For financial analysis, focus on: stock performance, company news, and market trends",
-        "5. Format the response clearly with proper headings and sections",
-        "6. Include direct links to sources when available"
+        f"1. Prioritize information from these trusted financial domains: {', '.join(TRUSTED_FINANCIAL_DOMAINS[:5])} and others",
+        "2. Use the search_news tool for current market news and developments",
+        "3. Use the search tool for general financial information and analysis",
+        "4. Use search_scholar for academic research and in-depth analysis",
+        "5. For specific companies or stocks, include their ticker symbol in the search",
+        "6. Provide accurate citations for all information sources including URLs and publication dates",
+        "7. For financial analysis, focus on: stock performance, company news, and market trends",
+        "8. Format the response clearly with proper headings and sections",
+        "9. Include direct links to sources when available",
+        "10. If information is conflicting between sources, present multiple perspectives",
+        "11. Always verify facts from multiple trusted sources before presenting as fact"
     ],
     markdown=True,
     show_tool_calls=True,
