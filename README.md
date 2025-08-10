@@ -1,9 +1,21 @@
-# Technical Stock Analyzer
+# 🚀 Multi-Agentic Financial Intelligence Platform
 
-A powerful Streamlit-based web application for technical analysis of stocks, featuring comprehensive charting tools, technical indicators, and AI-powered financial analysis.
+<div align="center">
+  <img src="https://img.shields.io/badge/Python-3.8+-blue.svg" alt="Python 3.8+">
+  <img src="https://img.shields.io/badge/Streamlit-FF4B4B?style=flat&logo=streamlit&logoColor=white" alt="Streamlit">
+  <img src="https://img.shields.io/badge/Agno-Framework-orange" alt="Agno Framework">
+  <img src="https://img.shields.io/badge/AgentOps-Enabled-success" alt="AgentOps">
+</div>
+
+A sophisticated multi-agent financial intelligence platform that combines AI-powered financial analysis with real-time market data, web research capabilities, and interactive visualization. The system leverages multiple specialized AI agents working in concert to provide comprehensive financial insights.
 
 ## 🌟 Features
 
+### 🤖 Multi-Agent Architecture
+- **Financial Analyst Agent**: Specializes in market analysis, stock recommendations, and financial metrics using YFinance.
+- **Web Research Agent**: Performs real-time web research using Crawl4ai for up-to-date information gathering.
+
+### 📊 Core Capabilities
 - **Interactive Stock Charts**: View candlestick charts with customizable timeframes
 - **Technical Indicators**:
   - Moving Averages (SMA, EMA)
@@ -14,7 +26,9 @@ A powerful Streamlit-based web application for technical analysis of stocks, fea
   - ATR (Average True Range)
   - OBV (On-Balance Volume)
 - **S&P 500 Integration**: Access to all S&P 500 constituents
+- **Real-time Market Data**: Live stock prices and historical data
 - **AI-Powered Analysis**: Advanced financial insights using AI models
+- **Web Research**: Real-time information gathering from trusted financial sources
 - **Responsive Design**: Works on desktop and mobile devices
 - **Data Export**: Download historical data in CSV format
 
@@ -24,6 +38,10 @@ A powerful Streamlit-based web application for technical analysis of stocks, fea
 
 - Python 3.8+
 - pip (Python package manager)
+- Required API Keys:
+  - GEMINI_API_KEY (for AI analysis)
+  - LINKUP_API_KEY (for web search)
+  - AGENTOPS_API_KEY (for agent monitoring)
 
 ### Installation
 
@@ -49,8 +67,9 @@ A powerful Streamlit-based web application for technical analysis of stocks, fea
 4. Set up environment variables:
    Create a `.env` file in the project root and add your API keys:
    ```
-   GEMINI_API_KEY=your_gemini_api_key
-   AGENTOPS_API_KEY=your_agentops_api_key
+   GEMINI_API_KEY=your_gemini_api_key_here
+   LINKUP_API_KEY=your_linkup_api_key_here
+   AGENTOPS_API_KEY=your_agentops_api_key_here
    ```
 
 ### Running the Application
@@ -61,6 +80,65 @@ streamlit run Home.py
 ```
 
 Open your browser and navigate to `http://localhost:8501`
+
+## 🤖 Agent Capabilities
+
+### Financial Analyst Agent
+- **Purpose**: Provides in-depth financial analysis and stock recommendations
+- **Capabilities**:
+  - Technical analysis using various indicators
+  - Fundamental analysis of stocks
+  - Market trend analysis
+  - Portfolio optimization suggestions
+  - Risk assessment
+
+### Web Research Agent
+- **Purpose**: Gathers and synthesizes information from the web
+- **Capabilities**:
+  - Real-time web research
+  - Information extraction from financial websites
+  - News aggregation and summarization
+  - Source citation and verification
+  - Market sentiment analysis
+
+## 🎯 Usage Examples
+
+### General Market Analysis
+```python
+# Get analysis of top tech stocks
+response = finance_team.run("What are the top 3 tech stocks to watch this quarter?")
+```
+
+### Stock-Specific Research
+```python
+# Get detailed analysis of a specific stock
+response = finance_team.run("Provide a comprehensive analysis of AAPL including technical and fundamental metrics")
+```
+
+### Web Research
+```python
+# Get latest news and analysis
+response = finance_team.run("Research the latest developments in electric vehicle market")
+```
+
+## 🚀 Deployment
+
+### Local Development
+1. Follow the installation steps above
+2. Run the Streamlit app:
+   ```bash
+   streamlit run Home.py
+   ```
+3. Access the app at `http://localhost:8501`
+
+### Cloud Deployment (Render)
+1. Fork this repository
+2. Create a new Web Service on Render
+3. Connect your GitHub repository
+4. Set environment variables in the Render dashboard
+5. Deploy!
+
+## 📊 Features in Detail
 
 ## 🛠 Project Structure
 
@@ -76,31 +154,31 @@ Technical_Stock_Analyzer/
 └── utils.py              # Utility functions
 ```
 
-## 📊 Usage
-
-1. **Select a Company**: Choose from the S&P 500 companies
-2. **Customize Timeframe**: Select your desired date range
-3. **Add Indicators**: Toggle technical indicators from the sidebar
-4. **Analyze**: View the interactive charts and technical analysis
-5. **Get AI Insights**: Use the AI analysis feature for deeper insights
-
-## 🐳 Docker Support
-
-Build and run the application using Docker:
-
-```bash
-# Build the Docker image
-docker build -t stock-analyzer .
-
-# Run the container
-docker run -p 8501:8501 stock-analyzer
-```
-
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
+## 🛠️ Development
+
+### Project Structure
+```
+├── Home.py               # Main Streamlit application
+├── finance_team.py       # Multi-agent financial analysis team
+├── pages/                # Additional Streamlit pages
+│   └── 1_Fintelligence.py  # Financial intelligence interface
+├── data_loader.py        # Data loading and processing
+├── indicators.py         # Technical indicators implementation
+├── plotting.py           # Chart visualization utilities
+└── utils.py              # Helper functions
+```
+
+### Adding New Agents
+1. Create a new agent in `finance_team.py`
+2. Add it to the team configuration
+3. Define its capabilities and tools
+4. Update the routing instructions
+
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
