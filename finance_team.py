@@ -1,5 +1,6 @@
 from agno.agent import Agent
 import os
+import agentops
 from agno.models.google import Gemini
 from agno.tools.yfinance import YFinanceTools
 from linkup import LinkupClient
@@ -8,6 +9,11 @@ from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
 
+AGENTOPS_API_KEY = os.getenv("AGENTOPS_API_KEY") 
+agentops.init(
+    api_key=AGENTOPS_API_KEY,
+    default_tags=['agno']
+)
 # Initialize the financial analyst agent with Linkup search capability
 financial_analyst = Agent(
     name="Financial Analyst with Linkup Search",
