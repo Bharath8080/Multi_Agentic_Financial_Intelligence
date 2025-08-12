@@ -51,7 +51,7 @@ A sophisticated multi-agent financial intelligence platform that combines AI-pow
    cd Multi_Agentic_Financial_Intelligence
    ```
 
-   Or try the live demo: [Multi-Agentic Financial Intelligence](https://multi-agentic-financial-intelligence.onrender.com)
+   Or try the live demo: [Multi-Agentic Financial Intelligence](https://fintelligenceagent.streamlit.app/)
 
 2. Create and activate a virtual environment (recommended):
    ```bash
